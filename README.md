@@ -29,3 +29,9 @@ Objects are unordered, arrays are ordered. Numbers such as 1 and 1.0 compare equ
 Source preview 0.1.0. Nine unit tests and CLI smoke checks passed on Linux. Windows has not been tested. No network requests, accounts or telemetry. This is Python source, not an EXE installer.
 
 MIT, copyright (c) 2026 Vilod. See LICENSE and SECURITY.md.
+
+## New in 0.2.0
+
+Quiet mode for scripting keeps exit codes 0 (equal), 1 (different), and 2 (input error).
+
+`python json_diff.py --quiet example-before.json example-after.json`

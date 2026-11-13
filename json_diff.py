@@ -5,7 +5,7 @@ import itertools
 import json
 from pathlib import Path
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 MAX_BYTES = 16 * 1024 * 1024
 
 
@@ -89,6 +89,7 @@ def main(argv=None):
     parser.add_argument('--version', action='version', version=VERSION)
     parser.add_argument('--show-paths', action='store_true', help='Include JSON Pointer paths; keys may contain private data')
     parser.add_argument('--max-changes', type=int, default=1000)
+    parser.add_argument('--quiet', action='store_true', help='Use exit status only')
     parser.add_argument('left')
     parser.add_argument('right')
     args = parser.parse_args(argv)
@@ -98,7 +99,8 @@ def main(argv=None):
         result = compare(load(args.left), load(args.right), args.show_paths, args.max_changes)
     except (ValueError, OSError, RecursionError):
         parser.exit(2, 'Cannot compare input. Use valid UTF-8 JSON up to 16 MiB per file.\n')
-    print(json.dumps(result, ensure_ascii=True, indent=2))
+    if not args.quiet:
+        print(json.dumps(result, ensure_ascii=True, indent=2))
     return 0 if result['equal'] else 1
 
 
